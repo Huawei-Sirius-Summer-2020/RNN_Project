@@ -17,6 +17,7 @@ def data_prepare(x,d):
     X = torch.DoubleTensor(torch.cat((x_real, x_imag))).reshape(2,-1,1).type(torch.FloatTensor).permute(1,2,0)
     D = torch.DoubleTensor(torch.cat((d_real, d_imag))).reshape(2,-1,1).type(torch.FloatTensor).permute(1,2,0)
     return X,D
+
 def batch_generator(X, D, count_of_delays_elements, batch_size=10):
     for j in range(0, X.shape[0], batch_size):
         yield torch.cat(([X[i - count_of_delays_elements:i + 1, :, :] if i > count_of_delays_elements else \
