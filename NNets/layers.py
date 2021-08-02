@@ -46,7 +46,7 @@ class ReverseLayer(nn.Module):
     def __init__(self, cell, *cell_args):
         super(ReverseLayer, self).__init__()
         self.cell = cell(*cell_args)
-    
+
     def forward(self, inp, state):
         inputs = inp.unbind(0)
         outputs = []
