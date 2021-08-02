@@ -1,6 +1,6 @@
-from NNets import IGIRNNCell,IGRNNCell
-from NNets import RNN_constructor
-from necessary_tools import get_matlab_data,data_prepare,batch_generator
+from cells import IGIRNNCell,IGRNNCell
+from layers import RNN_constructor
+from utils import get_matlab_data,data_prepare,batch_generator
 import torch
 import os
 
@@ -10,8 +10,8 @@ INPUT_DIM = 2
 OUTPUT_DIM = 2
 ENC_EMB_DIM = 2
 DEC_EMB_DIM = 50
-HID_DIM = 50
-N_LAYERS = 2
+HID_DIM = 5
+N_LAYERS = 5
 ENC_DROPOUT = 0.5
 DEC_DROPOUT = 0.5
 N_EPOCHS = 10
@@ -19,7 +19,7 @@ BATCH_SIZE = 10
 CLIP = 1
 SEQ_LENGTH=10 #length of seq in
 DATA_NAME='BlackBoxData_80.mat'
-device=torch.device('cuda:0')
+device=torch.device('cpu')
 ###################################################
 if __name__ == '__main__':
     seq_len, batch, input_size,num_layers,hidden_size=5,2,3,4,7
@@ -34,6 +34,7 @@ if __name__ == '__main__':
     states = [[torch.randn(BATCH_SIZE, HID_DIM)
                for _ in range(2)]
               for _ in range(N_LAYERS)]
+    # states = torch.zeros(size=(N_LAYERS, 2, BATCH_SIZE, HID_DIM))
     train_dataloader=batch_generator(X,D,SEQ_LENGTH,BATCH_SIZE)
 
     rnn = RNN_constructor(IGRNNCell,INPUT_DIM, HID_DIM, N_LAYERS, bidirectional=True)
