@@ -31,10 +31,10 @@ if __name__ == '__main__':
     X,D = data_prepare(x,d)
     # inp = torch.randn(seq_len, BATCH_SIZE, INPUT_DIM)
 
-    states = [[torch.randn(BATCH_SIZE, HID_DIM)
-               for _ in range(2)]
-              for _ in range(N_LAYERS)]
-    # states = torch.zeros(size=(N_LAYERS, 2, BATCH_SIZE, HID_DIM))
+#     states = [[torch.randn(BATCH_SIZE, HID_DIM)
+#                for _ in range(2)]
+#               for _ in range(N_LAYERS)]
+    states = torch.zeros(size=(N_LAYERS, 2, BATCH_SIZE, HID_DIM))
     train_dataloader=batch_generator(X,D,SEQ_LENGTH,BATCH_SIZE)
 
     rnn = RNN_constructor(IGRNNCell,INPUT_DIM, HID_DIM, N_LAYERS, bidirectional=True)
